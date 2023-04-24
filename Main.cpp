@@ -49,6 +49,18 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     if (FAILED(hr))
         return 1;
 
+    static bool s_fullscreen = false;
+
+    // 画面モード選択
+    if (MessageBox(NULL, L"フルスクリーンにしますか？", L"画面モード設定", MB_YESNO) == IDYES)
+    {
+        s_fullscreen = true;
+    }
+    else
+    {
+        s_fullscreen = false;
+    }
+
     // キーボードの作成
     std::unique_ptr<Keyboard> keyboard;
     keyboard = std::make_unique<Keyboard>();
@@ -103,6 +115,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
      }
 
+    // フルスクリーンに設定する
+    if (s_fullscreen) g_game->SetFullscreenState(TRUE);
+
     // Main message loop
     MSG msg = {};
     while (WM_QUIT != msg.message)
@@ -117,6 +132,9 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
             g_game->Tick();
         }
     }
+
+    // ウインドウモードに戻す
+    if (s_fullscreen) g_game->SetFullscreenState(FALSE);
 
     g_game.reset();
 

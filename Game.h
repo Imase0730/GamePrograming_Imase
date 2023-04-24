@@ -45,6 +45,11 @@ public:
     // Properties
     void GetDefaultSize( int& width, int& height ) const noexcept;
 
+public:
+
+    // 画面モードを設定する関数（TRUE：フルスクリーン）
+    void SetFullscreenState(BOOL value);
+
 private:
 
     void Update(DX::StepTimer const& timer);
@@ -62,7 +67,10 @@ private:
     DX::StepTimer                           m_timer;
 
 private:
-    
+
+    // 画面モード（TRUE：フルスクリーン）
+    BOOL m_fullscreen;
+ 
     // キーボードステートトラッカー
     DirectX::Keyboard::KeyboardStateTracker m_keyboardTracker;
 

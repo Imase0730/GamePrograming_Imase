@@ -12,6 +12,7 @@ using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 
 Game::Game() noexcept(false)
+    : m_fullscreen(FALSE)
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     // TODO: Provide parameters for swapchain format, depth/stencil format, and backbuffer count.
@@ -143,6 +144,17 @@ void Game::OnWindowMoved()
 {
     auto const r = m_deviceResources->GetOutputSize();
     m_deviceResources->WindowSizeChanged(r.right, r.bottom);
+
+    // フルスクリーンか調べる
+    BOOL fullscreen = FALSE;
+    m_deviceResources->GetSwapChain()->GetFullscreenState(&fullscreen, nullptr);
+    // フルスクリーンが解除されてしまった時の処理
+    if (m_fullscreen != fullscreen)
+    {
+        m_fullscreen = fullscreen;
+        // ResizeBuffers関数を呼び出す
+        m_deviceResources->CreateWindowSizeDependentResources();
+    }
 }
 
 void Game::OnDisplayChange()
@@ -167,6 +179,15 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
     width = 1280;
     height = 720;
 }
+
+// 画面モードを設定する関数（TRUE：フルスクリーン）
+void Game::SetFullscreenState(BOOL value)
+{
+    m_fullscreen = value;
+    m_deviceResources->GetSwapChain()->SetFullscreenState(m_fullscreen, nullptr);
+    if (value) m_deviceResources->CreateWindowSizeDependentResources();
+}
+
 #pragma endregion
 
 #pragma region Direct3D Resources
