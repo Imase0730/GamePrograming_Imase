@@ -11,6 +11,9 @@
     <Filter Include="ImaseLib">
       <UniqueIdentifier>{a7c7e69a-361d-44a9-85fd-3706ccd279ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{7561f8a9-c595-47e7-a5e6-f6be94c3c211}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -24,6 +27,13 @@
     <ClInclude Include="ImaseLib\DebugFont.h">
       <Filter>ImaseLib</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\SampleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ImaseLib\SceneManager.h">
+      <Filter>ImaseLib</Filter>
+    </ClInclude>
+    <ClInclude Include="UserResources.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -34,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="ImaseLib\DebugFont.cpp">
       <Filter>ImaseLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SampleScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
